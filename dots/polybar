@@ -17,9 +17,9 @@
 ;==========================================================
 
 [colors]
-background = #000319
+background = #00000000
 background-alt = #373B41
-foreground = #C5C8C6
+foreground = #000319
 primary = #01ebea
 secondary = #0168eb
 alert = #f61717
@@ -29,7 +29,7 @@ disabled = #c40082
 [bar/main]
 width = 100%
 height = 22pt
-radius = 10
+radius = 0
 
 ; dpi = 96
 
@@ -38,10 +38,10 @@ foreground = ${colors.foreground}
 
 line-size = 2pt
 
-border-left-size = 20
-border-right-size = 20
-border-top-size = 7
-border-color = #00000000
+;border-left-size = 20
+;border-right-size = 20
+;border-top-size = 7
+;border-color = #00000000
 
 padding-left = 0
 padding-right = 1
@@ -49,12 +49,13 @@ padding-right = 1
 module-margin = 1
 
 separator = |
-separator-foreground = ${colors.disabled}
+separator-foreground = ${colors.foreground}
 
 font-0 = "JetBrainsMonoNL Nerd Font:weight=bold;2"
 
 modules-left = xworkspaces
-modules-right = pulseaudio-control-output date battery wlan powerbutton logoutbutton memory cpu 
+modules-center = memory date cpu
+modules-right = pulseaudio-control-output wlan powerbutton logoutbutton battery
 # modules-disabled = filesystem xkeyboard xwindow eth pulseaudio 
 
 cursor-click = pointer
@@ -68,7 +69,7 @@ type = internal/xworkspaces
 
 label-active = %name%
 label-active-background = ${colors.background}
-label-active-underline= ${colors.primary}
+label-active-underline= ${colors.foreground}
 label-active-padding = 1
 
 label-occupied = %name%
@@ -125,13 +126,13 @@ label-muted-foreground = ${colors.disabled}
 type = custom/script
 tail = true
 label-padding = 0
-label-foreground = ${colors.primary}
+label-foreground = ${colors.foreground}
 
 # Icons mixed from Font Awesome 5 and Material Icons
 # You can copy-paste your options for each possible action, which is more
 # trouble-free but repetitive, or apply only the relevant ones (for example
 # --node-blacklist is only needed for next-node).
-exec = pulseaudio-control --icons-volume " , " --icon-muted " " --node-nicknames-from "device.description" --node-nickname "alsa_output.pci-0000_00_1b.0.analog-stereo: Speakers" --node-nickname "alsa_output.usb-Kingston_HyperX_Virtual_Surround_Sound_00000000-00.analog-stereo: Headphones" listen
+exec = pulseaudio-control --icons-volume " , " --icon-muted " " --node-nicknames-from "device.description" --node-nickname "alsa_output.pci-0000_00_1b.0.analog-stereo: " --node-nickname "alsa_output.usb-Kingston_HyperX_Virtual_Surround_Sound_00000000-00.analog-stereo: " listen
 click-right = exec pavucontrol &
 click-left = pulseaudio-control togmute
 click-middle = pulseaudio-control --node-blacklist "alsa_output.pci-0000_01_00.1.hdmi-stereo-extra2" next-node
@@ -157,14 +158,14 @@ scroll-down = pulseaudio-control --node-type input --volume-max 130 down
 type = internal/memory
 interval = 2
 format-prefix = " " 
-format-prefix-foreground = ${colors.primary}
+format-prefix-foreground = ${colors.foreground}
 label = %percentage_used:2%%
 
 [module/cpu]
 type = internal/cpu
 interval = 2
 format-prefix = "﬙ "
-format-prefix-foreground = ${colors.primary}
+format-prefix-foreground = ${colors.foreground}
 label = %percentage:2%%
 
 [network-base]
@@ -177,8 +178,8 @@ label-disconnected = %{F#F0C674}%ifname%%{F#707880} disconnected
 [module/wlan]
 inherit = network-base
 interface-type = wireless
-label-connected =  %{A1:nm-connection-editor:}%essid%%{A} 
-label-connected-foreground = ${colors.secondary}
+label-connected = %{A1:nm-connection-editor:} %{A} 
+label-connected-foreground = ${colors.foreground}
 
 #[module/eth]
 #inherit = network-base
@@ -203,7 +204,7 @@ date =  %H:%M:%S
 date-alt =  %d|%m|%y
 
 label = %date%
-label-foreground = ${colors.secondary}
+label-foreground = ${colors.foreground}
 
 [module/cava]
 type = custom/script
@@ -236,7 +237,7 @@ poll-interval = 5
 ;   <ramp-capacity>
 ;   <animation-charging>
 format-charging = <animation-charging>  <label-charging> 
-format-charging-foreground = ${colors.primary}
+format-charging-foreground = ${colors.foreground}
 
 ; Available tags:
 ;   <label-discharging> (default)
@@ -244,14 +245,14 @@ format-charging-foreground = ${colors.primary}
 ;   <ramp-capacity>
 ;   <animation-discharging>
 format-discharging = <animation-discharging>  <label-discharging>
-format-discharging-foreground = ${colors.secondary}
+format-discharging-foreground = ${colors.foreground}
 
 ; Available tags:
 ;   <label-full> (default)
 ;   <bar-capacity>
 ;   <ramp-capacity>
 format-full = <animation-charging>  <label-full>
-format-full-foreground = ${colors.full}
+format-full-foreground = ${colors.foreground}
 
 ; Format used when battery level drops to low-at
 ; If not defined, format-discharging is used instead.
@@ -262,7 +263,7 @@ format-full-foreground = ${colors.full}
 ;   <ramp-capacity>
 ; New in version 3.6.0
 format-low = <animation-discharging>  <label-low>
-format-low-foreground = ${colors.alert}
+format-low-foreground = ${colors.foreground}
 
 ; Available tokens:
 ;   %percentage% (default) - is set to 100 if full-at is reached
